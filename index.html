@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSV Data Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>📊CSV Data Analyzer📊</h1>
+    <p>Upload your CSV file and instantly see a friendly summary of your Data!</p>
+  </header>
+
+  <section class="info">
+    <p>Welcome!!</p>   
+    <p>This tool analyzes your CSV file and provides:</p>
+    <ul>
+      <li>Numeric Summaries 📈 (Average, Median, Mean, Min, Max, Variation)</li>
+      <li>Categorical Summaries 🧩 (Unique Values and Counts)</li>
+      <li>All statistics displayed in a user-friendly, easy-to-read format</li>
+    </ul>
+    <p>Upload your CSV file below to get started.</p>
+  </section>
+
+  <div class="container">
+    <form method="POST" enctype="multipart/form-data">
+      <input type="file" name="file" accept=".csv" required>
+      <button type="submit">Analyze</button>
+    </form>
+  </div>
+
+  <!-- Numeric Summary -->
+  {% if friendly_numeric %}
+    <section class="container">
+      <h2>Numeric Summary 📈</h2>
+      {% for col, stats in friendly_numeric.items() %}
+        <div class="card">
+          <h3>{{ col }}</h3>
+          <ul>
+            {% for stat_name, value in stats.items() %}
+              <li><strong>{{ stat_name }}:</strong> {{ value }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </section>
+  {% endif %}
+  {% if categorical_summary %}
+    <section class="container">
+      <h2>Categorical Summaries 🧩</h2>
+      {% for col, summary in categorical_summary.items() %}
+        <div class="card">
+          <h3>{{ col }}</h3>
+          <p><strong>Unique Count:</strong> {{ summary['Unique Count'] }}</p>
+          <p><strong>Values:</strong> {{ summary['Values'] }}</p>
+        </div>
+      {% endfor %}
+    </section>
+  {% endif %}
+
+  <footer>
+    <p>CSV Data Analyzer 📊</p>
+  </footer>
+</body>
+</html>
