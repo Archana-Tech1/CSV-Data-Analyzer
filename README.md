@@ -19,7 +19,7 @@ A Python-based tool that analyzes CSV files and provides quick data insights suc
 - Python
 - Pandas
 - NumPy
-- (Optional) Matplotlib for visualization
+- Matplotlib for visualization
 
 ---
 
